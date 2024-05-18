@@ -1,32 +1,65 @@
-# tPythonChatBotSpr24
-tPythonChatBotSpr24
+# Chat Bot Documentation
 
-As we wrap up our exciting journey through Python programming, I am pleased to introduce your final project: developing your own Python chatbot! This project is designed to consolidate your learning and provide you with a tangible piece of work that you can showcase to potential employers.
+This document provides instructions on how to use the provided chat bot powered by OpenAI's GPT-3.5 model. The bot can be interacted with via a console or through HTTP requests to a Flask web server.
 
-Project Overview:
+## Setup
 
-Your task is to create a functional chatbot using Python. This will involve integrating OpenAI models and familiarizing yourselves with API keys and model pricing. This project will be both challenging and rewarding, providing you with practical experience in software development and artificial intelligence.
+### Installation
 
-Getting Started:
+- Ensure you have Python installed on your system.
+- Install the required Python packages using pip:
 
-GitHub Classroom: You will find the starter code in our GitHub Classroom. Clone the repository to your local machine to begin your work.
-OpenAI Models: Learn how to integrate OpenAI models into your project. You will need to understand how to use API keys securely and manage the costs associated with model usage.
-Modify Starter Code: Begin by making modifications to the starter code. Ensure that you understand each part of the code and how it contributes to the functionality of the chatbot.
-Project Enhancements:
+### Obtain OpenAI API Key
 
-As your skills and time permit, consider enhancing your chatbot with the following features:
+- Sign up for an account on the OpenAI platform and obtain an API key.
+- Replace `"OPENAI_API_KEY"` in the script with your actual API key.
 
-Chat Memory: Implement memory in your chatbot so that it can remember previous parts of the conversation.
-Local Server: Utilize a local server like Streamlit to run your chatbot. This will allow for a more interactive experience.
-HTML with Streamlit: Enhance the user interface of your chatbot by incorporating HTML elements within Streamlit.
-LangChain Framework: Explore the LangChain framework for building chatbots. This can add sophisticated capabilities to your project.
-Open Source Model from Hugging Face: As an advanced challenge, integrate an open source model from Hugging Face to create an alternative version of your chatbot.
-Encouragement and Conclusion:
+## Usage
 
-This final project is intended to be a fun and educational experience. Do not stress about completing all the enhancements listed. We all have different levels of experience and time constraints, and the primary goal is to learn and end the class on a high note. This project is your opportunity to demonstrate your skills and creativity, so make the most of it!
+### Console Interaction
 
-Remember, you're not just completing a class assignment; you're building a project that could impress future employers. Enjoy the process, learn as much as you can, and feel proud of what you create.
+To interact with the chat bot via the console, follow these steps:
 
-Looking forward to seeing your innovative chatbots!
+1. Navigate to the directory containing the script.
+2. Run the script with the argument
+   python ChatBotAPP.py console (`'console'`:
+   `bash`
 
+3. Enter your message when prompted with You:. Press Enter to send your message.
+4. The bot will respond with its message.
 
+### Web Server Interaction
+
+To interact with the chat bot via HTTP requests to a Flask web server, follow these steps:
+
+1. Ensure the script is running as a web server:
+
+   - python ChatBotAPP.py
+
+2. Send a POST request to the /chat endpoint with JSON data containing the user's message:
+
+{
+"prompt": "Your message here"
+}
+
+- For example, using curl:
+  curl -X POST -H "Content-Type: application/json" -d '{"prompt": "Your message here"}' http://localhost:5000/chat
+
+### Notes
+
+    - The bot maintains chat history to provide context-aware responses. Each conversation session builds upon the previous messages.
+    - Rate limits are enforced by OpenAI's API. If the rate limit is exceeded, the bot will wait before retrying.
+    - Ensure that the API key is kept secure and not shared publicly to prevent unauthorized access to the OpenAI services.
+
+### Troubleshooting
+
+    - If encountering errors or unexpected behavior, check the console output for error messages.
+    - Ensure that the OpenAI API key is correctly set in the script.
+    - Verify that the Flask web server is running and accessible.
+
+Ending Notes: For some reason alot of the dependencies that were required to do this project wouldn't install onto the system I am currently using
+So I had to really think outside the box on what it would take for this chatbot to work. For instance, I could not "pip install" anything besides
+openai.
+
+I tryed the best I could, but I think this project will require a little TLC on another computer, I will continue to update this program to get it working
+even past this class. -RJ
