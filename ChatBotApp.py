@@ -1,6 +1,3 @@
-ChatBotAPP.py
-
-
 import openai
 import time
 from flask import Flask, request, jsonify
@@ -8,15 +5,29 @@ from flask import Flask, request, jsonify
 # OpenAI API key
 openai.api_key = "OPENAI_API_KEY"
 
+# Initialize chat history
+chat_history = []
+
 # Function to interact with GPT
 def chat_with_gpt(prompt):
+    global chat_history  # Access the global chat history variable
     while True:
         try:
+            # Include the chat history in the prompt
+            messages = [{"role": "user", "content": p} for p in chat_history]
+            messages.append({"role": "user", "content": prompt})
+            
             response = openai.ChatCompletion.create(
                 model="gpt-3.5-turbo",
-                messages=[{"role": "user", "content": prompt}]
+                messages=messages
             )
-            return response.choices[0].message['content'].strip()
+            response_content = response.choices[0].message['content'].strip()
+            
+            # Update chat history with the current prompt and response
+            chat_history.append(prompt)
+            chat_history.append(response_content)
+            
+            return response_content
         except openai.error.RateLimitError as e:
             print("Rate limit exceeded. Waiting before retrying...")
             time.sleep(60)  # Wait for 60 seconds before retrying
